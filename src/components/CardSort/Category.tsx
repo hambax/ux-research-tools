@@ -13,12 +13,14 @@ interface CategoryProps {
   category: CategoryType;
   activeId?: string | null;
   onDelete: (categoryId: string) => void;
+  onDeleteItem?: (itemId: string) => void;
 }
 
 export const Category: React.FC<CategoryProps> = ({
   category,
   activeId,
   onDelete,
+  onDeleteItem,
 }) => {
   const { setNodeRef } = useDroppable({
     id: category.id,
@@ -79,6 +81,7 @@ export const Category: React.FC<CategoryProps> = ({
               key={item.id}
               id={item.id}
               isDragging={activeId === item.id}
+              onDelete={onDeleteItem}
             >
               {item.content}
             </SortableItem>

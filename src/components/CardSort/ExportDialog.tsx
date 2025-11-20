@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { CardItem, CategoryType } from '../../types';
 import { PrimaryButton, TextButton } from '../common/Button';
+import { colours, radii } from '../../theme/tokens';
 
 interface ExportDialogProps {
   open: boolean;
@@ -35,7 +36,7 @@ const ExportDialog: React.FC<ExportDialogProps> = ({
 
   const exportToJson = () => {
     const data = {
-      uncategorizedItems: items,
+      uncategorisedItems: items,
       categories: categories,
     };
     return JSON.stringify(data, null, 2);
@@ -44,12 +45,12 @@ const ExportDialog: React.FC<ExportDialogProps> = ({
   const exportToCsv = () => {
     const rows = [['Item', 'Category']];
     
-    // Add uncategorized items
+    // Add uncategorised items
     items.forEach(item => {
-      rows.push([item.content, 'Uncategorized']);
+      rows.push([item.content, 'Uncategorised']);
     });
 
-    // Add categorized items
+    // Add categorised items
     categories.forEach(category => {
       category.items.forEach(item => {
         rows.push([item.content, category.name]);
@@ -60,7 +61,7 @@ const ExportDialog: React.FC<ExportDialogProps> = ({
   };
 
   const exportToText = () => {
-    let text = 'Uncategorized Items:\n';
+    let text = 'Uncategorised Items:\n';
     items.forEach(item => {
       text += `- ${item.content}\n`;
     });
@@ -119,8 +120,9 @@ const ExportDialog: React.FC<ExportDialogProps> = ({
       fullWidth
       sx={{
         '& .MuiDialog-paper': {
-          bgcolor: 'rgba(255, 255, 255, 0.8)',
-          backdropFilter: 'blur(20px)',
+          bgcolor: colours.neutral.white,
+          borderRadius: radii.large,
+          padding: '8px', // MuiDialog-paper usually has some padding handled by content but overrides here
         },
       }}
     >

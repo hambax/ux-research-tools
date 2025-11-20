@@ -1,38 +1,67 @@
 import { createTheme } from '@mui/material/styles';
+import { colours, typography, spacing, radii } from './tokens';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: colours.primary.main,
+      light: colours.primary.light,
+      dark: colours.primary.dark,
+      contrastText: colours.primary.contrastText,
+    },
+    secondary: {
+      main: colours.secondary.main,
+      light: colours.secondary.light,
+      dark: colours.secondary.dark,
+      contrastText: colours.secondary.contrastText,
+    },
+    background: {
+      default: colours.neutral.background,
+      paper: colours.neutral.paper,
+    },
+    text: {
+      primary: colours.neutral.text.primary,
+      secondary: colours.neutral.text.secondary,
+      disabled: colours.neutral.text.disabled,
+    },
+    divider: colours.neutral.divider,
+    success: { main: colours.semantic.success },
+    error: { main: colours.semantic.error },
+    warning: { main: colours.semantic.warning },
+    info: { main: colours.semantic.info },
+  },
   typography: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: typography.fontFamily,
     h1: {
-      fontSize: '2.5rem',
-      fontWeight: 600,
+      fontSize: typography.sizes.h1,
+      fontWeight: typography.weights.semibold,
     },
     h2: {
-      fontSize: '2rem',
-      fontWeight: 600,
+      fontSize: typography.sizes.h2,
+      fontWeight: typography.weights.semibold,
     },
     h3: {
-      fontSize: '1.75rem',
-      fontWeight: 600,
+      fontSize: typography.sizes.h3,
+      fontWeight: typography.weights.semibold,
     },
     h4: {
-      fontSize: '1.5rem',
-      fontWeight: 600,
+      fontSize: typography.sizes.h4,
+      fontWeight: typography.weights.semibold,
     },
     h5: {
-      fontSize: '1.25rem',
-      fontWeight: 600,
+      fontSize: typography.sizes.h5,
+      fontWeight: typography.weights.semibold,
     },
     h6: {
-      fontSize: '1rem',
-      fontWeight: 600,
+      fontSize: typography.sizes.h6,
+      fontWeight: typography.weights.semibold,
     },
     body1: {
-      fontSize: '1rem',
+      fontSize: typography.sizes.body1,
       lineHeight: 1.5,
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: typography.sizes.body2,
       lineHeight: 1.5,
     },
   },
@@ -41,24 +70,24 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: '8px',
+          borderRadius: radii.medium,
           padding: '12px 24px',
-          fontSize: '1rem',
-          fontWeight: 500,
+          fontSize: typography.sizes.body1,
+          fontWeight: typography.weights.medium,
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: '12px',
+          borderRadius: radii.large,
         },
       },
     },
     MuiDialog: {
       styleOverrides: {
         paper: {
-          borderRadius: '12px',
+          borderRadius: radii.large,
           padding: '20px',
         },
       },
@@ -67,13 +96,36 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: '8px',
+            borderRadius: radii.medium,
+            height: '48px', // Match button height
+          },
+          '& .MuiInputLabel-root': {
+            transform: 'translate(14px, 12px) scale(1)', // Center label when not shrunk
+            '&.Mui-focused, &.MuiFormLabel-filled': {
+              transform: 'translate(14px, -9px) scale(0.75)', // Move label up when focused/filled
+            },
           },
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: '12px 14px', // Adjust padding to vertically center text within 48px
+          height: 'auto',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          height: '48px',
+          borderRadius: radii.medium,
+        }
+      }
+    }
   },
-  spacing: 8,
+  spacing: spacing.unit,
 });
 
 export default theme;

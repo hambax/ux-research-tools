@@ -37,3 +37,23 @@ export interface ShareDialogProps {
   shareableLink: string;
   onSendEmail: (email: string) => void;
 }
+
+// Tree Test Types
+export interface TreeNode {
+  id: string;
+  label: string;
+  children?: TreeNode[];
+}
+
+export interface TreeTask {
+  id: string;
+  question: string;
+  correctNodeId: string;
+}
+
+export interface TreeTestConfig {
+  id: string;
+  title: string;
+  tree: TreeNode[];
+  tasks: TreeTask[];
+}

@@ -1,23 +1,26 @@
 import React from 'react';
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { AppBar, Box, Toolbar, Typography, Drawer } from '@mui/material';
+import Navigation from './Navigation';
+import { colours } from '../../theme/tokens';
+
+const DRAWER_WIDTH = 240;
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const theme = useTheme();
-
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', background: 'linear-gradient(160deg, #e6f3ff 0%, #f0f7ff 100%)' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: colours.neutral.background }}>
       <AppBar
         position="fixed"
+        elevation={0}
         sx={{
-          bgcolor: 'rgba(255, 255, 255, 0.7)',
-          backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.02)',
+          width: `calc(100% - ${DRAWER_WIDTH}px)`,
+          ml: `${DRAWER_WIDTH}px`,
+          bgcolor: colours.neutral.white,
+          borderBottom: `1px solid ${colours.neutral.divider}`,
+          color: colours.neutral.text.primary,
         }}
       >
         <Toolbar>
@@ -25,19 +28,46 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, color: 'text.primary', fontWeight: 500 }}
+            sx={{ flexGrow: 1, fontWeight: 600 }}
           >
-            Card Sort Exercise
+            UX Research Tools
           </Typography>
         </Toolbar>
       </AppBar>
+      
+      <Drawer
+        sx={{
+          width: DRAWER_WIDTH,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+            borderRight: `1px solid ${colours.neutral.divider}`,
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          borderBottom: `1px solid ${colours.neutral.divider}` 
+        }}>
+          <Typography variant="h6" color="primary" fontWeight="bold">
+            UXTools
+          </Typography>
+        </Toolbar>
+        <Navigation />
+      </Drawer>
+
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          pt: { xs: 7, sm: 8 }, // Adjusted padding for AppBar height
-          px: 2.5, // 20px horizontal padding
-          minWidth: 0, // Allow container to shrink
+          p: 3,
+          width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+          mt: 8, // Toolbar height
         }}
       >
         {children}
